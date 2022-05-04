@@ -545,7 +545,7 @@ class QueryBuilder {
 			const settings = this.settings;
 			const protocol = settings.useSSL ? https : http;
 			const options = merge({}, {
-				hostname: settings.useRelative ? undefined : [ settings.realm, settings.domain ].join('.'),
+				hostname: settings.useRelative ? undefined : [ settings.realm, settings.domain ].filter((v) => !!v).join('.'),
 				port: settings.useRelative ? undefined : (settings.useSSL ? 443 : 80),
 				path: (settings.useRelative ? '' : settings.path + 'db/') + (this.options.dbid && !settings.flags.dbidAsParam ? this.options.dbid : 'main') + '?act=' + this.action + (!settings.flags.useXML ? this.payload : ''),
 				method: settings.flags.useXML ? 'POST' : 'GET',
